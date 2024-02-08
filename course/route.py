@@ -9,7 +9,7 @@ from course.admin import AdminPanel
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 
 @app.route('/courses', methods=['GET', 'POST'])
