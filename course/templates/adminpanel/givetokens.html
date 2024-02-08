@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Give Token Page {% endblock %}
+
+
+{% block content %}
+<div class="container text-center">
+    <form method="POST" style="color:white">
+        {{ form.hidden_tag() }}
+        {% for _ in range(5) %}
+        <br>
+        {% endfor %}
+        
+        <h3>Give Token</h3>
+        <br>
+        {{ form.username.label() }}
+        {{ form.username(class="form-control", placeholder="User Name") }}
+
+        {{ form.token_count.label() }}
+        {{ form.token_count(class="form-control", placeholder="Tokens") }}
+        <br>
+
+        {{ form.submit(class="btn btn-lg btn-success") }}
+    </form>
+</div>
+{% endblock %}

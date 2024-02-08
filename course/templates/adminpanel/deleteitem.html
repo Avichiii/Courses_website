@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Item Page {% endblock %}
+
+{% block content %}
+<div class="mr-2 ml-2">
+    <h3 class="text-center mt-3">Admin Panel</h3>
+    <br>
+    <div class="row">
+        {% for item in admin_panel.getitems %}
+            <div class="col-md-4">
+                <div style="margin-bottom: 30px" class="card text-center bg-dark card-wrapper">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <br>
+                            <a class="btn btn-info btn-outline btn-danger" href="{{ url_for('action_perform', action='deleteitem', value=item.name) }}">Delete Item</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

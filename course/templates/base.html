@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>      
+        {% block title %}
+        <!--we are making this field dynamic-->
+        {% endblock %}
+    </title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Flask WebApp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('courses') }}">Courses</a>
+          </li>
+          <!-- display dashboard if the user is authenticated -->
+          {% if current_user.is_authenticated %}
+            <li>
+              <a class="nav-link" href="{{url_for('users')}}">Dashboard</a>
+            </li>
+              {% if current_user.username == 'admin' %}
+              <li>
+                <a class="nav-link" href="{{url_for('admin')}}">Admin Panel</a>
+              </li>
+              {% endif %}
+
+          {% endif %}
+        </ul>
+        <!-- current_user attribute contains the current user object -->
+        <!-- thus it can access User Classes method and attributes -->
+        <!-- 
+
+          The current_user object is an instance of User model/Class, which is retrieved and 
+          stored by flask_login during the login process.
+
+         -->
+        {% if current_user.is_authenticated %}
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" style="color: lawngreen; font-weight: bold">
+                  <i class="fas fa-coins"></i>
+                  <!-- # calls the geter styled_token -->
+                  {{ current_user.styled_token }}
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Welcome, {{ current_user.username }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('logout')}}">Log Out</a>
+            </li>
+          </ul>
+        {% else %}
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('login')}}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+            </li>
+          </ul>
+        {% endif %}
+        
+      </div>
+    </nav>
+    <!-- future content here -->
+    {% block userinfo %}
+    <!-- user info will be displayed here -->
+    {% endblock %}
+
+    <!-- flashing messages with get_flashed_messages() function -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for message in messages %}
+        <!-- depending on the message tuples first value the alert message div will be different -->
+          {% if message[0] == "danger" %}
+          <div class="alert alert-danger">
+          {% elif message[0] == "success" %}
+          <div class="alert alert-success">
+          {% elif message[0] == "info" %}
+          <div class="alert alert-info">
+          {% endif %}
+            <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message[1] }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!--from block title -> block content-->
+    {% block content %}
+    <!--dynamic field-->
+    {% endblock %}
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+  <style>
+    body {
+      background-color: #212121;
+      color: white;
+    }
+  </style>
+</html>
+
+
+
+
+
+
+
+    

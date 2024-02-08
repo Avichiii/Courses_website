@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Admin Panel
+{% endblock %}
+
+{% block content %}
+<div class="mr-2 ml-2">
+    <h3 class="text-center mt-3">Admin Panel</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <div style="margin-bottom: 30px" class="card text-center bg-dark card-wrapper">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Click the button to Delete Users</strong></h5>
+                    <br>
+                        <a class="btn btn-info btn-outline" href="{{ url_for('actions', action='deleteuser') }}">Delete Users</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div style="margin-bottom: 30px" class="card text-center bg-dark card-wrapper">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Click the button to Delete Items</strong></h5>
+                    <br>
+                        <a class="btn btn-info btn-outline" href="{{ url_for('actions', action='deleteitem') }}">Delete Items</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div style="margin-bottom: 30px" class="card text-center bg-dark card-wrapper">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Click the button to Give tokens to Users</strong></h5>
+                    <br>
+                        <a class="btn btn-info btn-outline" href="{{ url_for('actions', action='givetokens') }}">Give Tokens</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

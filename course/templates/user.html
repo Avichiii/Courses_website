@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} User Page {% endblock %}
+
+
+{% block userinfo %}
+<!-- user info will be displayed here -->
+<div class="text-right mt-3 mr-3">
+    <h3>Users Dashboard</h3>
+    <p>welcome, 
+        <span style="color:lawngreen">
+        {{ current_user.username }}
+        </span>
+    </p>
+    <br>
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-8">
+            <form method="POST" class="form-register" style="color:white">
+                {{ form.hidden_tag() }}
+        
+                <h1 class="h3 mt-3 mb-3 font-weight-normal text-center">
+                    Upload a Course
+                </h1>
+        
+                <br>
+                {{ form.course_name.label() }}
+                {{ form.course_name(class="form-control", placeholder='Course Name') }}
+        
+                {{ form.course_url.label() }}
+                {{ form.course_url(class="form-control", placeholder='Course Url') }}
+        
+                {{ form.token_worth.label() }}
+                {{ form.token_worth(class="form-control", placeholder='token') }}
+        
+                {{ form.description.label() }}
+                {{ form.description(class="form-control", placeholder='Description') }}
+        
+                <br>
+                <br>
+        
+                {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+            </form>
+        </div>
+        <div class="col-lg-4 text-center">
+            <div class="container ml-5 ">
+                <!-- it will add 11 <br> tags -->
+                {% for _ in range(11) %}
+                    <br>
+                {% endfor %}
+                <a class ="btn btn-block btn-outline btn-success" href="{{ url_for('ownedcourses', username=current_user.username)}}">
+                    View Your Courses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

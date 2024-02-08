@@ -1,0 +1,59 @@
+{% extends 'base.html' %} 
+
+{% block title %} Courses Page {% endblock %} 
+
+{% block content %}
+<div class="container-fluid text-center">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-8">
+            <h4>Available Courses on the Site</h4>
+            <p>Click on one of the courses to display the link</p>
+            <br>
+            
+            <div class="table-responsive">
+                <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <!-- Your Columns HERE -->
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Uploader</th>
+                            <th scope="col">Token</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Your rows inside the table HERE: -->
+                        {% for item in items %}
+                        <!-- 
+                          including contents of items_modals.html { 
+                          it is different from inheriting. 
+                          }
+                        -->
+                        {% include 'includes/items_modals.html' %}
+                        <tr>
+                            <td>{{ item['id'] }}</td>
+                            <td>{{ item['name'] }}</td>
+                            <td>{{ item['uploader'] }}</td>
+                            <td>{{ item['token'] }}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Options">
+                                    <!-- #modal-moreinfo-{{ item.id }} is a id by which we are calling the modals  thus the html in items_modal.html will execute-->
+                                    <button class="btn btn-outline btn-info btn-sm mr-2" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                                    <button class="btn btn-outline btn-success btn-sm" data-toggle="modal" data-target="#Modal-DisplayLink-{{ item.id }}">Get Course Link</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h4>Recent Courses</h4>
+            <p>Courses that have been recently added.</p>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}
