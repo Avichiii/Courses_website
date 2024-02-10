@@ -41,5 +41,3 @@ class AdminPanel(object):
             if user == user_obj:
                 return user.items_owned
     
-    def is_admin(self, username):
-        return username == 'admin'
