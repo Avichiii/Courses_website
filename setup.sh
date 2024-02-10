@@ -8,5 +8,6 @@ apt install python3-pip
 
 mkdir /opt/CoursesWebAPP
 git clone https://github.com/Avichiii/courses_website /opt/CoursesWebAPP
+cd /opt/CoursesWebAPP
 pip install -r requirements.txt
 python3 app.py
