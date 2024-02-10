@@ -1,7 +1,7 @@
 from course import db
 from course import app
 from course.models import Items, Users
-from flask import render_template, url_for, redirect, flash, request
+from flask import render_template, url_for, redirect, flash, request, abort
 from course.forms import RegistrForm, LoginForm, GetLinkForm, AddLinkForm, AssignTokensForm
 from flask_login import login_user, logout_user, login_required, current_user
 from course.admin import AdminPanel
@@ -147,6 +147,16 @@ def ownedcourses(username):
         return render_template('user_owned_courses.html', username=username)
     else:
         return redirect(url_for('users'))
+
+# it is a global request handler, that checks before every request autometically if the user has 
+# privilage to navigate to any route starts with /admin or /users
+@app.before_request
+def check_user_privilage():
+    if request.path.startswith('/admin') or request.path.startswith('/users'):
+        if not current_user.is_authenticated:
+            return redirect(url_for('home'))
+        if not current_user.username == 'admin':
+            return redirect(url_for('home'))
 
 
 # For admin user only

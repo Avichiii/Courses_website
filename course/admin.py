@@ -1,7 +1,6 @@
 from course.models import Users, Items
 from course import db
 
-
 # using this classs admin related functionality is implemented
 class AdminPanel(object):
     # def __init__(self, user_obj, item_obj):
@@ -41,5 +40,6 @@ class AdminPanel(object):
         for user in users:
             if user == user_obj:
                 return user.items_owned
-
-
+    
+    def is_admin(self, username):
+        return username == 'admin'

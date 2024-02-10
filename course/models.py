@@ -45,7 +45,7 @@ class Users(db.Model, UserMixin):
     def can_purchase(self, item_object):
         # if item object is already in users items_owned object, user should not able to purchase the item.
         return self.tokens_owned >= item_object.token and self.username != item_object.uploader and (item_object not in self.items_owned)
-
+    
     def __str__(self) -> str:
         return f"User: {self.username}"
 
